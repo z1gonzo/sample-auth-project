@@ -95,10 +95,11 @@ export default {
           })
           .then((result) => {
             console.log(result);
+            localStorage.token = result.token;
             // logginging inging
             setTimeout(() => {
               this.loggingIn = false;
-              // this.$router.push('/login');
+              this.$router.push('/dashboard');
             }, 1000);
           })
           .catch((err) => {

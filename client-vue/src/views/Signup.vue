@@ -122,10 +122,11 @@ export default {
               throw new Error(err.message);
             });
           })
-          .then(() => {
+          .then((result) => {
+            localStorage.token = result.token;
             setTimeout(() => {
               this.signingUp = false;
-              this.$router.push('/login');
+              this.$router.push('/dashboard');
             }, 1000);
           })
           .catch((err) => {
