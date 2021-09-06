@@ -2,13 +2,24 @@
   <div class="home text-center">
     <div class="jumbotron mt-5">
       <h1 class="display-3">Auth Sampler!</h1>
-      <p class="lead">
-        Learning Auth is dope!
-      </p>
+      <p class="lead">Learning Auth is dope!</p>
       <hr class="my-4" />
-      <p>Sing with Sign</p>
+      <p>
+        Sing with
+        <router-link
+          class="btn btn-primary btn-lg"
+          :to="{ name: 'login' }"
+          role="button"
+        >
+          Sign
+        </router-link>
+      </p>
       <p class="lead">
-        <router-link class="btn btn-primary btn-lg" :to="{ name: 'signup' }" role="button">
+        <router-link
+          class="btn btn-primary btn-lg"
+          :to="{ name: 'signup' }"
+          role="button"
+        >
           Sign Up
         </router-link>
       </p>

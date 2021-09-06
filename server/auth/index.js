@@ -66,8 +66,6 @@ router.post('/signup', (req, res, next) => {
               password: hashedPassword,
             };
             users.insert(newUser).then((insertedUser) => {
-              // delete insertedUser.password;
-              // res.json(insertedUser);
               createTokenSendResponse(insertedUser, res, next)
             });
           });
