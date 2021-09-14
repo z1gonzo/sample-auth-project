@@ -1,4 +1,3 @@
-const func = require('joi/lib/types/func');
 const jwt = require('jsonwebtoken')
 
 function checkTokenSetUser(req, res, next) {

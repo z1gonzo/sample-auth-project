@@ -38,10 +38,27 @@
       </div>
       <button type="submit" class="btn btn-success">Add Note</button>
     </form>
+    <section class="row mt-3">
+      <div class="col-6" v-for="note in notes" :key="note._id">
+        <div class="card border-info mb-3">
+          <div class="card-header">{{ note.title }}</div>
+          <div class="card-body">
+            <p class="card-text" v-html="renderMarkDown(note.note)"></p>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
 <script>
+import MarkdownIt from 'markdown-it';
+import MDemoji from 'markdown-it-emoji';
+
+const md = MarkdownIt();
+md.use(MDemoji);
+
+const API_URL = 'http://localhost:5000/';
 export default {
   data: () => ({
     showForm: true,
@@ -50,9 +67,9 @@ export default {
       title: '',
       note: '',
     },
+    notes: [],
   }),
   mounted() {
-    const API_URL = 'http://localhost:5000';
     fetch(API_URL, {
       headers: {
         authorization: `Bearer ${localStorage.token}`,
@@ -62,21 +79,45 @@ export default {
       .then((result) => {
         if (result.user) {
           this.user = result.user;
+          this.getNotes();
         } else {
           this.logout();
         }
       });
   },
   methods: {
+    renderMarkDown(note) {
+      return md.render(note);
+    },
+    getNotes() {
+      fetch(`${API_URL}api/v1/notes`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((notes) => {
+          this.notes = notes;
+        });
+    },
     addNote() {
       fetch(`${API_URL}api/v1/notes`, {
         method: 'post',
         body: JSON.stringify(this.newNote),
         headers: {
           'content-type': 'application/json',
-          authorization: `Bearer ${localStorage.token}`,
+          Authorization: `Bearer ${localStorage.token}`,
         },
-      });
+      })
+        .then((res) => res.json())
+        .then((note) => {
+          this.notes.push(note);
+          this.newNote = {
+            title: '',
+            note: '',
+          };
+          this.showForm = false;
+        });
     },
     logout() {
       localStorage.removeItem('token');
@@ -85,3 +126,11 @@ export default {
   },
 };
 </script>
+<style>
+.card {
+  height: 90%;
+}
+.card-text img {
+  width: 100%;
+}
+</style>

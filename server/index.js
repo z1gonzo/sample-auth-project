@@ -6,19 +6,19 @@ require('dotenv').config();
 
 const app = express();
 
-const middlewares = require('./auth/middlewares')
+const middlewares = require('./auth/middlewares');
 
 const auth = require('./auth/index');
-const notes = require('./api/notes')
+const notes = require('./api/notes');
 
 app.use(volleyball);
 app.use(
   cors({
-    origin: 'http://localhost:8080',
+    origin: 'http://localhost:8081',
   })
 );
 app.use(express.json());
-app.use(middlewares.checkTokenSetUser)
+app.use(middlewares.checkTokenSetUser);
 
 app.get('/', (req, res) => {
   res.json({
