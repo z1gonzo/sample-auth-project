@@ -58,7 +58,7 @@ import MDemoji from 'markdown-it-emoji';
 const md = MarkdownIt();
 md.use(MDemoji);
 
-const API_URL = 'http://localhost:5000/';
+const API_URL = process.env.VUE_APP_API;
 export default {
   data: () => ({
     showForm: true,
@@ -90,7 +90,7 @@ export default {
       return md.render(note);
     },
     getNotes() {
-      fetch(`${API_URL}api/v1/notes`, {
+      fetch(`${API_URL}/api/v1/notes`, {
         headers: {
           Authorization: `Bearer ${localStorage.token}`,
         },
@@ -101,7 +101,7 @@ export default {
         });
     },
     addNote() {
-      fetch(`${API_URL}api/v1/notes`, {
+      fetch(`${API_URL}/api/v1/notes`, {
         method: 'post',
         body: JSON.stringify(this.newNote),
         headers: {

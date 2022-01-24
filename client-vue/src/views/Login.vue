@@ -44,7 +44,9 @@
 <script>
 import Joi from 'joi';
 
-const LOGIN_URL = 'http://localhost:5000/auth/login';
+require('dotenv').config();
+
+const LOGIN_URL = `${process.env.VUE_APP_API}/auth/login`;
 
 const schema = Joi.object().keys({
   username: Joi.string()

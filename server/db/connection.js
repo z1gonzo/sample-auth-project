@@ -1,10 +1,8 @@
 const monk = require('monk')
 
-const DB_URL = 'cluster0.s56mj.gcp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
-const { NODE_MONGO_USER, NODE_MONGO_PASS } = process.env;
+const { NODE_MONGO_USER, NODE_MONGO_PASS, NODE_MONGO_URL } = process.env;
 
-const db = monk(`mongodb+srv://${NODE_MONGO_USER}:${NODE_MONGO_PASS}@${DB_URL}`)
-// const db = monk('mongodb://localhost:27017')
+const db = monk(`mongodb+srv://${NODE_MONGO_USER}:${NODE_MONGO_PASS}@${NODE_MONGO_URL}`)
 
-db.then(() => console.log('Connected correctly'))
+db.then(() => console.log('Connected correctly')).catch(err => console.log('Ups something went wrong...', err));
 module.exports = db

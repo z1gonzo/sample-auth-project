@@ -11,6 +11,7 @@ const schema = Joi.object().keys({
 
 const router = express.Router();
 
+/// GET USER NOTES
 router.get('/', (req, res) => {
   notes.find({
     user_id: req.user._id
@@ -19,6 +20,7 @@ router.get('/', (req, res) => {
   });
 });
 
+/// CREATE NEW NOTE
 router.post('/', (req, res, next) => {
   const result = Joi.validate(req.body, schema);
   if (result.error === null) {
@@ -38,6 +40,10 @@ router.post('/', (req, res, next) => {
     next(error);
   }
 });
+
+/// EDIT NOTE
+
+/// DELETE NOTE
 
 
 module.exports = router;
