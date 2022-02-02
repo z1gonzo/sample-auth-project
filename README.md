@@ -1,7 +1,6 @@
-# Auth for Newbs
-Online @ https://jwt-vue-client.herokuapp.com/
+###  JWT-based authentication with a Node / Express / MongoDB.
 
-Add JWT-based authentication to a Node/Express/Mongo app.
+Online @ https://jwt-vue-client.herokuapp.com/
 
 ## Authentication
 * [x] Create Server
